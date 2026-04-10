@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crimson Desert — Gear Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0c0b;
+    --bg2:       #131210;
+    --bg3:       #1a1815;
+    --bg4:       #211f1b;
+    --border:    #2e2b26;
+    --border2:   #3d3a32;
+    --gold:      #c9a84c;
+    --gold2:     #e8c96a;
+    --gold-dim:  #7a6330;
+    --red:       #a33030;
+    --red2:      #c94040;
+    --text:      #d4cfc5;
+    --text2:     #8a8478;
+    --text3:     #5a5650;
+    --crit:      #c94040;
+    --atk-spd:   #4a8fc9;
+    --mv-spd:    #4aad6e;
+    --def:       #7a7060;
+    --spirit:    #9060c9;
+    --hp:        #c97040;
+    --atk:       #c94040;
+    --radius:    6px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── BACKGROUND TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(180,50,30,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 60% at 100% 80%, rgba(100,70,20,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 0 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+  }
+
+  header h1 span {
+    color: var(--red2);
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: var(--text2);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── NAV TABS ─── */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tab-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    position: relative;
+  }
+
+  .tab-btn:hover { color: var(--text2); }
+
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  .tab-btn .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--border2);
+    border-radius: 50%;
+    font-size: 9px;
+    margin-left: 6px;
+    color: var(--text2);
+    vertical-align: middle;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── SECTION DIVIDERS ─── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2.5rem 0 1.25rem;
+  }
+
+  .section-header:first-child { margin-top: 0; }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border2), transparent);
+  }
+
+  /* ─── CALLOUT (foundation tip) ─── */
+  .callout {
+    border: 1px solid var(--gold-dim);
+    border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    font-size: 15px;
+    color: var(--text2);
+    margin-bottom: 2rem;
+    line-height: 1.65;
+  }
+
+  .callout strong { color: var(--gold2); font-weight: 500; }
+
+  /* ─── ITEM CARD ─── */
+  .item-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .item-card:hover { border-color: var(--border2); }
+  .item-card.expanded { border-color: var(--border2); }
+
+  .item-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+
+  .item-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .item-meta { flex: 1; min-width: 0; }
+
+  .item-name {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold2);
+    letter-spacing: 0.02em;
+    margin-bottom: 3px;
+  }
+
+  .item-slot {
+    font-size: 13px;
+    color: var(--text3);
+    font-style: italic;
+  }
+
+  .stat-chips {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .chip {
+    font-size: 11px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .chip-crit   { color: #e06060; border-color: #5a2020; background: rgba(169,50,50,0.12); }
+  .chip-spd    { color: #6aaae0; border-color: #1e4060; background: rgba(50,100,169,0.12); }
+  .chip-mv     { color: #60c07a; border-color: #1e5030; background: rgba(50,140,80,0.12); }
+  .chip-def    { color: #a09080; border-color: #3a3020; background: rgba(100,90,70,0.1); }
+  .chip-spirit { color: #c090e0; border-color: #402060; background: rgba(130,70,180,0.12); }
+  .chip-hp     { color: #e09050; border-color: #502010; background: rgba(169,100,50,0.12); }
+  .chip-atk    { color: #e07070; border-color: #502020; background: rgba(169,70,50,0.12); }
+  .chip-gold   { color: var(--gold); border-color: var(--gold-dim); background: rgba(201,168,76,0.08); }
+
+  .toggle-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text3);
+    transition: transform 0.25s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .item-card.expanded .toggle-icon { transform: rotate(180deg); color: var(--gold-dim); }
+
+  /* ─── ITEM BODY ─── */
+  .item-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.2rem 1.2rem 1.4rem;
+    background: var(--bg3);
+  }
+
+  .item-card.expanded .item-body { display: block; }
+
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 580px) {
+    .body-grid { grid-template-columns: 1fr; }
+    .stat-chips { display: none; }
+    .item-name { font-size: 13px; }
+  }
+
+  .body-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* Stats table */
+  .stats-table { width: 100%; border-collapse: collapse; }
+
+  .stats-table td {
+    padding: 5px 0;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .stats-table tr:last-child td { border-bottom: none; }
+  .stats-table td:first-child { color: var(--text2); width: 45%; }
+  .stats-table td:last-child { color: var(--text); font-weight: 500; text-align: right; }
+
+  /* How to get steps */
+  .steps { list-style: none; }
+
+  .step-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+
+  .step-item:last-child { margin-bottom: 0; }
+
+  .step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    color: var(--gold-dim);
+    font-size: 10px;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
+  .step-text strong { color: var(--text); font-weight: 500; }
+
+  /* Notes / tips */
+  .note {
+    margin-top: 10px;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .note strong { color: var(--gold); font-weight: 500; }
+
+  .warning {
+    margin-top: 8px;
+    background: rgba(169,50,50,0.07);
+    border: 1px solid rgba(169,50,50,0.2);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    font-size: 13px;
+    color: #c08080;
+    line-height: 1.55;
+  }
+
+  /* ─── TOTAL STATS SUMMARY ─── */
+  .totals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .total-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.9rem 1rem;
+    text-align: center;
+  }
+
+  .total-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+
+  .total-val {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .total-source {
+    font-size: 12px;
+    color: var(--text3);
+    font-style: italic;
+  }
+
+  /* ─── UPGRADE SECTION ─── */
+  .upgrade-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .upgrade-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold2);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .upgrade-body { font-size: 14px; color: var(--text2); line-height: 1.65; }
+  .upgrade-body strong { color: var(--text); font-weight: 500; }
+
+  /* ─── PLACEHOLDER (coming soon panels) ─── */
+  .placeholder {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--text3);
+  }
+
+  .placeholder-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--border2);
+    margin-bottom: 0.5rem;
+  }
+
+  .placeholder p { font-style: italic; font-size: 15px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text3);
+    font-style: italic;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ─── PROGRESS INDICATOR ─── */
+  .obtained-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text3);
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .obtained-toggle:hover { border-color: var(--border2); color: var(--text2); }
+  .obtained-toggle.got { color: #60c07a; border-color: #1e5030; background: rgba(50,140,80,0.08); }
+
+  .check-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+
+  .item-card.obtained { opacity: 0.6; }
+  .item-card.obtained .item-name::after {
+    content: ' ✓';
+    color: #60c07a;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="header-eyebrow">Field Manual — Pywel</p>
+  <h1>Crimson Desert<br><span>Gear</span> Index</h1>
+  <p class="header-sub">Build foundation · Upgrade paths · How to obtain</p>
+
+  <nav id="main-nav">
+    <button class="tab-btn active" data-tab="accessories">Accessories <span class="tab-count">5</span></button>
+    <button class="tab-btn" data-tab="weapons">Weapons <span class="tab-count">—</span></button>
+    <button class="tab-btn" data-tab="armor">Armor <span class="tab-count">—</span></button>
+    <button class="tab-btn" data-tab="abyss">Abyss Gear <span class="tab-count">—</span></button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════════════
+       TAB: ACCESSORIES
+  ══════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-accessories">
+
+    <div class="callout">
+      <strong>Why accessories first?</strong> Stats from your two rings, two earrings, and necklace apply <strong>globally</strong> — across every weapon and even bare-hand hits. Max these five items once and never look at them again. All future gear choices become flexible: pick whatever weapon you want or whatever looks good.
+    </div>
+
+    <!-- TOTALS -->
+    <div class="section-header">
+      <span class="section-title">Baseline once maxed</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="totals-grid">
+      <div class="total-card">
+        <div class="total-label">Crit Rate</div>
+        <div class="total-val" style="color:#e06060;">Lv 4</div>
+        <div class="total-source">necklace (global)</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Attack Speed</div>
+        <div class="total-val" style="color:#6aaae0;">Lv 8</div>
+        <div class="total-source">4+4 from both rings</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Move Speed</div>
+        <div class="total-val" style="color:#60c07a;">Lv 8</div>
+        <div class="total-source">4+4 from both earrings</div>
+      </div>
+      <div class="total-card">
+        <div class="total-label">Gear choice after</div>
+        <div class="total-val" style="color: var(--gold);">Free</div>
+        <div class="total-source">pick for looks or weapon</div>
+      </div>
+    </div>
+
+    <!-- NECKLACE -->
+    <div class="section-header">
+      <span class="section-title">Necklace</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="item-card" data-id="necklace-lightning">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">⚡</div>
+        <div class="item-meta">
+          <div class="item-name">Necklace of Lightning</div>
+          <div class="item-slot">Necklace · Eastern Court basement</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-crit">Crit Lv 4</span>
+          <span class="chip chip-spirit">Spirit +0.3/s</span>
+          <span class="chip chip-atk">Atk +5</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Max Stats (10/10 refinement)</p>
+            <table class="stats-table">
+              <tr><td>Attack</td><td>+5</td></tr>
+              <tr><td>Crit Rate</td><td>Lv 4 (global)</td></tr>
+              <tr><td>Spirit Regen</td><td>+0.3 /sec</td></tr>
+            </table>
+            <div class="note"><strong>Note:</strong> Crit from the necklace may be doubled — current theory is it's not always consistent. Regardless, Lv 4 global crit is the best available.</div>
+          </div>
+          <div>
+            <p class="body-section-label">How to get</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Go to <strong>Eastern Court</strong>, east of Demeniss. Sneak in through the <strong>back window</strong> to skip the boss fight.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Inside: take the first left → through the <strong>curtain-covered hidden room</strong> → downstairs → <strong>ladder under the stairs</strong>.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Dial puzzle: <strong>Right until click → Left until click → repeat</strong> (right, left, right, left).</span></li>
+            </ol>
+            <div class="warning">⚠ Equip a <strong>Mask</strong> before looting — item is flagged as stolen goods. Without a mask, the prompt is greyed out.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RINGS -->
+    <div class="section-header">
+      <span class="section-title">Rings · 2 slots</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="item-card" data-id="witchs-ring">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">💍</div>
+        <div class="item-meta">
+          <div class="item-name">Witch's Ring</div>
+          <div class="item-slot">Ring 1 · Ch. 9 quest reward — Unwavering Steps</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-spd">Atk Spd Lv 4</span>
+          <span class="chip chip-atk">Atk +3</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Max Stats (10/10 refinement)</p>
+            <table class="stats-table">
+              <tr><td>Attack</td><td>+3</td></tr>
+              <tr><td>Attack Speed</td><td>Lv 4 (global)</td></tr>
+              <tr><td>Stamina Regen</td><td>−50% cost</td></tr>
+            </table>
+          </div>
+          <div>
+            <p class="body-section-label">How to get</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Reach <strong>Chapter 9</strong> and accept the <strong>Unwavering Steps</strong> quest.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Solve the <strong>mirrors puzzle outside</strong> the tower, then again <strong>inside</strong> to climb to the very top.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">This leads to the <strong>Abyss at Nest of Valor</strong>. Defeat the boss to earn the ring.</span></li>
+            </ol>
+            <div class="note"><strong>Bonus:</strong> Behind the boss, find the room with <strong>Fated Shadow</strong> sword — its skill "Gray Soul Howling" is one of the strongest in the game.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card" data-id="mark-of-darkness">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">🌑</div>
+        <div class="item-meta">
+          <div class="item-name">Mark of Darkness</div>
+          <div class="item-slot">Ring 2 · Windmere Manor strongbox, north of Demeniss</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-spd">Atk Spd Lv 4</span>
+          <span class="chip chip-atk">Atk +3</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Max Stats (10/10 refinement)</p>
+            <table class="stats-table">
+              <tr><td>Attack</td><td>+3</td></tr>
+              <tr><td>Attack Speed</td><td>Lv 4 (global)</td></tr>
+              <tr><td>Stamina Regen</td><td>+2%</td></tr>
+            </table>
+          </div>
+          <div>
+            <p class="body-section-label">How to get</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Go to <strong>Windmere Manor</strong>, north of the "M" in Demeniss on the map.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Climb the back of the manor → open the <strong>second floor window</strong> to bypass guards entirely.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Strongbox in the corner</strong>: arrange the picture puzzle and loot it.</span></li>
+            </ol>
+            <div class="note">Guards patrol but won't flag a bounty if you fight them. Climbing in is faster.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EARRINGS -->
+    <div class="section-header">
+      <span class="section-title">Earrings · 2 slots</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="item-card" data-id="witchs-earring">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">👂</div>
+        <div class="item-meta">
+          <div class="item-name">Witch's Earring</div>
+          <div class="item-slot">Earring 1 · Southern Court strongbox, SW of Demeniss</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-mv">Move Spd Lv 4</span>
+          <span class="chip chip-def">Def +2</span>
+          <span class="chip chip-hp">HP +0.2/s</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Max Stats (10/10 refinement)</p>
+            <table class="stats-table">
+              <tr><td>Defense</td><td>+2</td></tr>
+              <tr><td>Move Speed</td><td>Lv 4 (global)</td></tr>
+              <tr><td>HP Regen</td><td>+0.2 /sec</td></tr>
+            </table>
+            <div class="note"><strong>Alt:</strong> Ancient Earring has identical base stats. Engraved Gold Earring (Lioncrest Manor) also gives Lv 4 Move Speed — grab whichever you find first.</div>
+          </div>
+          <div>
+            <p class="body-section-label">How to get</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Head to <strong>Southern Court</strong>, southwest of Demeniss.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Find the closest window — jump in, go <strong>straight through the double doors</strong>.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Easiest puzzle in the game.</strong> Just press the buttons on the strongbox.</span></li>
+            </ol>
+            <div class="warning">⚠ Equip a <strong>Mask</strong> before looting — same stolen-goods flag as the necklace.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card" data-id="black-lion-earring">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">🦁</div>
+        <div class="item-meta">
+          <div class="item-name">Black Lion Earring</div>
+          <div class="item-slot">Earring 2 · Legendary Hunter quest chain — Hernand region</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-mv">Move Spd Lv 4</span>
+          <span class="chip chip-def">Def</span>
+          <span class="chip chip-hp">HP Regen</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Max Stats (10/10 refinement)</p>
+            <table class="stats-table">
+              <tr><td>Defense</td><td>Scales with refinement</td></tr>
+              <tr><td>Move Speed</td><td>Lv 4 (global)</td></tr>
+              <tr><td>HP Regen</td><td>+0.2 /sec</td></tr>
+            </table>
+            <div class="note">The most involved earring to get — but the quest chain is worth it and the fight is good practice for positioning.</div>
+          </div>
+          <div>
+            <p class="body-section-label">Quest chain to unlock</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text"><strong>Unlock Halden:</strong> Free <strong>Velcom Outpost</strong> → return to Hernand → sleep → find the bounty flyer on the wall → go grab him.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Defeat <strong>Gwen</strong> → travel to <strong>Lioncrest Manor entrance</strong> → the legendary hunter NPC appears.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Give hunter <strong>2 leather</strong> (instant 100 trust) → give next NPC <strong>2 wine</strong> for his info.</span></li>
+              <li class="step-item"><span class="step-num">4</span><span class="step-text">Go to marked location → examine bodies → <strong>track with lantern</strong> → defeat <strong>Black Lion + pack</strong> → skin the beast.</span></li>
+            </ol>
+            <div class="warning">Multi-enemy fight — bring healing. The lion fight tests positioning and stamina. Move speed from your other gear helps.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPGRADING -->
+    <div class="section-header">
+      <span class="section-title">Upgrading &amp; materials</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">⛏ Mining efficiency setup</div>
+      <div class="upgrade-body">
+        Upgrade the <strong>Mining Knuckle Drill to rank 6+</strong> → unlocks Expert Mining, +20% ore yield, and <strong>auto-loot</strong> (no chasing drops). Stack <strong>Blessing of the Earth</strong> abyss gear on a dedicated farming set (up to 3 pieces × 30% = 90%). Combined with the drill: <strong>100% bonus ore</strong>. Same logic applies to skinning and wood cutting pieces.
+      </div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">🐍 Aeserion Scales (final rank unlock)</div>
+      <div class="upgrade-body">
+        Head to the <strong>small island in the south</strong>. Drop down from any Abyss teleporter above. Grab scales with <strong>Axiom Force</strong> — store in the Cuckoo Pot. No combat required (serpent dragon didn't aggro). Feels like enough to cover multiple playthroughs.
+      </div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">📦 Don't skip medium bag quests after hitting 240 slots</div>
+      <div class="upgrade-body">
+        Once you hit the inventory cap, bag quests stop giving storage — but they <strong>now reward valuable materials</strong> (Flawless Timber etc.). Quick deliveries, worth doing.
+      </div>
+    </div>
+
+  </div><!-- /tab-accessories -->
+
+
+  <!-- ══════════════════════════════════
+       TAB: WEAPONS  (add as you go)
+  ══════════════════════════════════ -->
+  <div class="tab-panel" id="tab-weapons">
+    <div class="placeholder">
+      <p class="placeholder-title">Weapons</p>
+      <p>Add entries here as you progress.<br>Copy an <code>&lt;item-card&gt;</code> block from the accessories section.</p>
+    </div>
+
+    <!-- TEMPLATE — copy and fill in
+    <div class="section-header">
+      <span class="section-title">Two-handed sword</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="item-card" data-id="fated-shadow">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">⚔️</div>
+        <div class="item-meta">
+          <div class="item-name">Fated Shadow</div>
+          <div class="item-slot">Sword · Nest of Valor, behind the boss</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-gold">Gray Soul Howling</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">Stats</p>
+            <table class="stats-table">
+              <tr><td>Attack</td><td>TBC</td></tr>
+              <tr><td>Unique Skill</td><td>Gray Soul Howling</td></tr>
+            </table>
+          </div>
+          <div>
+            <p class="body-section-label">How to get</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Complete <strong>Unwavering Steps</strong> quest (Ch. 9) and defeat the boss.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Go <strong>behind the boss room</strong> → small room to the right → pick up the sword.</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       TAB: ARMOR  (add as you go)
+  ══════════════════════════════════ -->
+  <div class="tab-panel" id="tab-armor">
+    <div class="placeholder">
+      <p class="placeholder-title">Armor</p>
+      <p>Add entries here as you progress.</p>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       TAB: ABYSS GEAR  (add as you go)
+  ══════════════════════════════════ -->
+  <div class="tab-panel" id="tab-abyss">
+    <div class="placeholder">
+      <p class="placeholder-title">Abyss Gear</p>
+      <p>Add entries here as you progress.<br>Gathering bonuses, farming sets, blueprints — document as discovered.</p>
+    </div>
+
+    <!-- Quick reference for farming bonuses — already known -->
+    <div class="callout" style="margin-top: 2rem;">
+      <strong>Blessing of the Earth</strong> — Abyss gathering piece. Comes in 3 ranks giving 10%, 20%, and 30% bonus ore. Stacks. Max 3 equipped = 90% bonus mining yield (+ 20% from Drill = 100% total).
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Crimson Desert personal gear index · Update as you explore Pywel
+</footer>
+
+<script>
+  // ─── TAB SWITCHING ───
+  const nav = document.getElementById('main-nav');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  nav.addEventListener('click', e => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    panels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  });
+
+  // ─── CARD EXPAND/COLLAPSE ───
+  function toggleCard(header) {
+    const card = header.closest('.item-card');
+    card.classList.toggle('expanded');
+  }
+
+  // ─── OBTAINED TOGGLE (persists via localStorage) ───
+  function toggleObtained(event, btn) {
+    event.stopPropagation();
+    const card = btn.closest('.item-card');
+    const id = card.dataset.id;
+    const isGot = card.classList.toggle('obtained');
+    btn.classList.toggle('got', isGot);
+    try { localStorage.setItem('cd-obtained-' + id, isGot ? '1' : ''); } catch(e) {}
+  }
+
+  // ─── RESTORE OBTAINED STATE ON LOAD ───
+  document.querySelectorAll('.item-card[data-id]').forEach(card => {
+    try {
+      if (localStorage.getItem('cd-obtained-' + card.dataset.id) === '1') {
+        card.classList.add('obtained');
+        card.querySelector('.obtained-toggle').classList.add('got');
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>
