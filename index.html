@@ -35,7 +35,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -47,7 +46,6 @@
     min-height: 100vh;
   }
 
-  /* ─── BACKGROUND TEXTURE ─── */
   body::before {
     content: '';
     position: fixed;
@@ -59,7 +57,6 @@
     z-index: 0;
   }
 
-  /* ─── HEADER ─── */
   header {
     position: relative;
     z-index: 1;
@@ -98,13 +95,13 @@
     margin-bottom: 2rem;
   }
 
-  /* ─── NAV TABS ─── */
   nav {
     display: flex;
     justify-content: center;
     gap: 0;
     position: relative;
     z-index: 1;
+    flex-wrap: wrap;
   }
 
   .tab-btn {
@@ -116,7 +113,7 @@
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.2rem;
     cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
     position: relative;
@@ -133,21 +130,21 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
+    min-width: 16px;
     height: 16px;
+    padding: 0 5px;
     background: var(--border2);
-    border-radius: 50%;
+    border-radius: 50px;
     font-size: 9px;
     margin-left: 6px;
     color: var(--text2);
     vertical-align: middle;
   }
 
-  /* ─── MAIN LAYOUT ─── */
   main {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 5rem;
   }
@@ -155,7 +152,6 @@
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ─── SECTION DIVIDERS ─── */
   .section-header {
     display: flex;
     align-items: center;
@@ -180,7 +176,6 @@
     background: linear-gradient(to right, var(--border2), transparent);
   }
 
-  /* ─── CALLOUT (foundation tip) ─── */
   .callout {
     border: 1px solid var(--gold-dim);
     border-left: 3px solid var(--gold);
@@ -195,7 +190,6 @@
 
   .callout strong { color: var(--gold2); font-weight: 500; }
 
-  /* ─── ITEM CARD ─── */
   .item-card {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -284,7 +278,6 @@
 
   .item-card.expanded .toggle-icon { transform: rotate(180deg); color: var(--gold-dim); }
 
-  /* ─── ITEM BODY ─── */
   .item-body {
     display: none;
     border-top: 1px solid var(--border);
@@ -300,7 +293,7 @@
     gap: 1.25rem;
   }
 
-  @media (max-width: 580px) {
+  @media (max-width: 700px) {
     .body-grid { grid-template-columns: 1fr; }
     .stat-chips { display: none; }
     .item-name { font-size: 13px; }
@@ -315,7 +308,6 @@
     margin-bottom: 8px;
   }
 
-  /* Stats table */
   .stats-table { width: 100%; border-collapse: collapse; }
 
   .stats-table td {
@@ -329,7 +321,6 @@
   .stats-table td:first-child { color: var(--text2); width: 45%; }
   .stats-table td:last-child { color: var(--text); font-weight: 500; text-align: right; }
 
-  /* How to get steps */
   .steps { list-style: none; }
 
   .step-item {
@@ -360,7 +351,6 @@
   .step-text { font-size: 14px; color: var(--text2); line-height: 1.55; }
   .step-text strong { color: var(--text); font-weight: 500; }
 
-  /* Notes / tips */
   .note {
     margin-top: 10px;
     background: rgba(201,168,76,0.05);
@@ -385,7 +375,6 @@
     line-height: 1.55;
   }
 
-  /* ─── TOTAL STATS SUMMARY ─── */
   .totals-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -424,7 +413,6 @@
     font-style: italic;
   }
 
-  /* ─── UPGRADE SECTION ─── */
   .upgrade-block {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -444,10 +432,14 @@
     gap: 8px;
   }
 
-  .upgrade-body { font-size: 14px; color: var(--text2); line-height: 1.65; }
+  .upgrade-body {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.75;
+  }
+
   .upgrade-body strong { color: var(--text); font-weight: 500; }
 
-  /* ─── PLACEHOLDER (coming soon panels) ─── */
   .placeholder {
     text-align: center;
     padding: 5rem 2rem;
@@ -463,7 +455,6 @@
 
   .placeholder p { font-style: italic; font-size: 15px; }
 
-  /* ─── FOOTER ─── */
   footer {
     position: relative;
     z-index: 1;
@@ -475,12 +466,10 @@
     font-style: italic;
   }
 
-  /* ─── SCROLLBAR ─── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-  /* ─── PROGRESS INDICATOR ─── */
   .obtained-toggle {
     display: flex;
     align-items: center;
@@ -493,6 +482,7 @@
     border: 1px solid transparent;
     transition: all 0.2s;
     flex-shrink: 0;
+    background: transparent;
   }
 
   .obtained-toggle:hover { border-color: var(--border2); color: var(--text2); }
@@ -516,6 +506,18 @@
     color: #60c07a;
     font-size: 11px;
   }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  code {
+    font-family: Consolas, monospace;
+    font-size: 0.95em;
+    color: var(--gold2);
+  }
 </style>
 </head>
 <body>
@@ -526,25 +528,182 @@
   <p class="header-sub">Build foundation · Upgrade paths · How to obtain</p>
 
   <nav id="main-nav">
-    <button class="tab-btn active" data-tab="accessories">Accessories <span class="tab-count">5</span></button>
-    <button class="tab-btn" data-tab="weapons">Weapons <span class="tab-count">—</span></button>
-    <button class="tab-btn" data-tab="armor">Armor <span class="tab-count">—</span></button>
-    <button class="tab-btn" data-tab="abyss">Abyss Gear <span class="tab-count">—</span></button>
+    <button class="tab-btn active" data-tab="build">Build <span class="tab-count">Now</span></button>
+    <button class="tab-btn" data-tab="accessories">Accessories <span class="tab-count">5</span></button>
+    <button class="tab-btn" data-tab="weapons">Weapons <span class="tab-count">Live</span></button>
+    <button class="tab-btn" data-tab="armor">Armor <span class="tab-count">Live</span></button>
+    <button class="tab-btn" data-tab="abyss">Abyss Gear <span class="tab-count">Rules</span></button>
+    <button class="tab-btn" data-tab="build">Build</button>
   </nav>
 </header>
 
 <main>
 
   <!-- ══════════════════════════════════
-       TAB: ACCESSORIES
+       TAB: BUILD
   ══════════════════════════════════ -->
-  <div class="tab-panel active" id="tab-accessories">
+  <div class="tab-panel active" id="tab-build">
 
     <div class="callout">
-      <strong>Why accessories first?</strong> Stats from your two rings, two earrings, and necklace apply <strong>globally</strong> — across every weapon and even bare-hand hits. Max these five items once and never look at them again. All future gear choices become flexible: pick whatever weapon you want or whatever looks good.
+      <strong>Use this tab while playing.</strong> Quick reference: what stays, what upgrades, what gets replaced.
     </div>
 
-    <!-- TOTALS -->
+    <div class="section-header">
+      <span class="section-title">Current Build</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">🪖 Armor</div>
+        <div class="upgrade-body">
+          <strong>Helmet:</strong> Vigor III<br>
+          <strong>Chest:</strong> Vigor + Momentum + Slashing Reeds <br>
+          <strong>Gloves:</strong> Move Speed + Vitality<br>
+          <strong>Boots:</strong> Move Speed + Vitality
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">⚔️ Main + Offhand</div>
+        <div class="upgrade-body">
+          <strong>Main hand:</strong> Attack / Attack / Crit<br>
+          <strong>Offhand:</strong> Attack Speed / Crit / Crow's Pursuit
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🏹 Bow</div>
+        <div class="upgrade-body">
+          <strong>Bow:</strong> Attack Speed / Crit / Attack / Attack / 60% arrows
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">⚠ Swap Slot Reminder</div>
+        <div class="upgrade-body">
+          <strong>Chest 3rd slot:</strong> Reeds for general play<br>
+          <strong>Swap to:</strong> Shockward / Frostward when a fight starts hitting hard
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Slot Rules</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">📌 What goes where</div>
+        <div class="upgrade-body">
+          <strong>Weapons:</strong> Attack, Crit, Attack Speed<br>
+          <strong>Armor:</strong> Vigor, Momentum, Vitality, resist swaps<br>
+          <strong>Main hand:</strong> pure damage<br>
+          <strong>Offhand:</strong> speed + utility<br>
+          <strong>Bow:</strong> 1 speed, 1 crit, 2 attack, 1 arrows
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🧠 Simple rules</div>
+        <div class="upgrade-body">
+          <strong>Weapons =</strong> raw damage<br>
+          <strong>Armor =</strong> sustain + skill support<br>
+          <strong>Correct II &gt; random III</strong><br>
+          <strong>Same stat, higher tier = equip</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Upgrade Priority</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">⬆ Main upgrades first</div>
+        <div class="upgrade-body">
+          1. Main hand Attack III<br>
+          2. Main hand Crit III<br>
+          3. Bow Attack III<br>
+          4. Bow Crit III<br>
+          5. Attack Speed III where relevant<br>
+          6. Momentum III
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🧱 Armor upgrades after</div>
+        <div class="upgrade-body">
+          1. Vigor III upgrades<br>
+          2. Vitality upgrades<br>
+          3. Resist cores for hard fights<br>
+          4. Better-looking base pieces before over-refining junk
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Drop Decision</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">✅ Equip</div>
+        <div class="upgrade-body">
+          Same stat, higher tier.<br>
+          Example: Attack II → Attack III<br>
+          Example: Crit I → Crit II / III
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">📦 Stash</div>
+        <div class="upgrade-body">
+          Shockward<br>
+          Frostward<br>
+          Bloodbane / Abyssbane / Hexebane<br>
+          Situational fight-specific pieces
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">❌ Ignore</div>
+        <div class="upgrade-body">
+          Pickpocket / Ledgermain<br>
+          Wrong-slot fluff<br>
+          Random utility if it replaces core stats<br>
+          Anything that breaks a working setup
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🎯 Current shopping list</div>
+        <div class="upgrade-body">
+          Better-looking 1H sword<br>
+          Helmet<br>
+          Body Armor<br>
+          Cloak<br>
+          Boots<br>
+          Temporary ring until Witch's Ring<br>
+          Better earring later
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       TAB: ACCESSORIES
+  ══════════════════════════════════ -->
+  <div class="tab-panel" id="tab-accessories">
+
+    <div class="callout">
+      <strong>Why accessories first?</strong> Stats from your two rings, two earrings, and necklace apply <strong>globally</strong> across every weapon. Max these five items once and never look at them again. Future gear choices become flexible: use what looks good or what feels good.
+    </div>
+
     <div class="section-header">
       <span class="section-title">Baseline once maxed</span>
       <div class="section-line"></div>
@@ -573,7 +732,6 @@
       </div>
     </div>
 
-    <!-- NECKLACE -->
     <div class="section-header">
       <span class="section-title">Necklace</span>
       <div class="section-line"></div>
@@ -608,22 +766,21 @@
               <tr><td>Crit Rate</td><td>Lv 4 (global)</td></tr>
               <tr><td>Spirit Regen</td><td>+0.3 /sec</td></tr>
             </table>
-            <div class="note"><strong>Note:</strong> Crit from the necklace may be doubled — current theory is it's not always consistent. Regardless, Lv 4 global crit is the best available.</div>
+            <div class="note"><strong>Note:</strong> Crit from the necklace may be doubled depending on interaction / wording. Regardless, Lv 4 global crit is still one of the best accessory pickups.</div>
           </div>
           <div>
             <p class="body-section-label">How to get</p>
             <ol class="steps">
               <li class="step-item"><span class="step-num">1</span><span class="step-text">Go to <strong>Eastern Court</strong>, east of Demeniss. Sneak in through the <strong>back window</strong> to skip the boss fight.</span></li>
               <li class="step-item"><span class="step-num">2</span><span class="step-text">Inside: take the first left → through the <strong>curtain-covered hidden room</strong> → downstairs → <strong>ladder under the stairs</strong>.</span></li>
-              <li class="step-item"><span class="step-num">3</span><span class="step-text">Dial puzzle: <strong>Right until click → Left until click → repeat</strong> (right, left, right, left).</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Dial puzzle: <strong>Right until click → Left until click → repeat</strong>.</span></li>
             </ol>
-            <div class="warning">⚠ Equip a <strong>Mask</strong> before looting — item is flagged as stolen goods. Without a mask, the prompt is greyed out.</div>
+            <div class="warning">⚠ Equip a <strong>Mask</strong> before looting — item is flagged as stolen goods. Without a mask, the prompt can be greyed out.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- RINGS -->
     <div class="section-header">
       <span class="section-title">Rings · 2 slots</span>
       <div class="section-line"></div>
@@ -662,10 +819,10 @@
             <p class="body-section-label">How to get</p>
             <ol class="steps">
               <li class="step-item"><span class="step-num">1</span><span class="step-text">Reach <strong>Chapter 9</strong> and accept the <strong>Unwavering Steps</strong> quest.</span></li>
-              <li class="step-item"><span class="step-num">2</span><span class="step-text">Solve the <strong>mirrors puzzle outside</strong> the tower, then again <strong>inside</strong> to climb to the very top.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Solve the <strong>mirror puzzle outside</strong> the tower, then again <strong>inside</strong> to climb to the top.</span></li>
               <li class="step-item"><span class="step-num">3</span><span class="step-text">This leads to the <strong>Abyss at Nest of Valor</strong>. Defeat the boss to earn the ring.</span></li>
             </ol>
-            <div class="note"><strong>Bonus:</strong> Behind the boss, find the room with <strong>Fated Shadow</strong> sword — its skill "Gray Soul Howling" is one of the strongest in the game.</div>
+            <div class="note"><strong>Bonus:</strong> Behind the boss, find the room with <strong>Fated Shadow</strong> sword — its skill <strong>Gray Soul Howling</strong> is one of the strongest unique weapon skills you've noted.</div>
           </div>
         </div>
       </div>
@@ -703,17 +860,16 @@
           <div>
             <p class="body-section-label">How to get</p>
             <ol class="steps">
-              <li class="step-item"><span class="step-num">1</span><span class="step-text">Go to <strong>Windmere Manor</strong>, north of the "M" in Demeniss on the map.</span></li>
-              <li class="step-item"><span class="step-num">2</span><span class="step-text">Climb the back of the manor → open the <strong>second floor window</strong> to bypass guards entirely.</span></li>
-              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Strongbox in the corner</strong>: arrange the picture puzzle and loot it.</span></li>
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Go to <strong>Windmere Manor</strong>, north of the “M” in Demeniss.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Climb the back of the manor → open the <strong>second floor window</strong> to bypass guards.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Strongbox in the corner</strong>: solve the picture puzzle and loot it.</span></li>
             </ol>
-            <div class="note">Guards patrol but won't flag a bounty if you fight them. Climbing in is faster.</div>
+            <div class="note">Guards patrol but climbing in is the fast route.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- EARRINGS -->
     <div class="section-header">
       <span class="section-title">Earrings · 2 slots</span>
       <div class="section-line"></div>
@@ -748,14 +904,14 @@
               <tr><td>Move Speed</td><td>Lv 4 (global)</td></tr>
               <tr><td>HP Regen</td><td>+0.2 /sec</td></tr>
             </table>
-            <div class="note"><strong>Alt:</strong> Ancient Earring has identical base stats. Engraved Gold Earring (Lioncrest Manor) also gives Lv 4 Move Speed — grab whichever you find first.</div>
+            <div class="note"><strong>Alt:</strong> Ancient Earring and Engraved Gold Earring are worth checking too if you reach them first.</div>
           </div>
           <div>
             <p class="body-section-label">How to get</p>
             <ol class="steps">
               <li class="step-item"><span class="step-num">1</span><span class="step-text">Head to <strong>Southern Court</strong>, southwest of Demeniss.</span></li>
               <li class="step-item"><span class="step-num">2</span><span class="step-text">Find the closest window — jump in, go <strong>straight through the double doors</strong>.</span></li>
-              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Easiest puzzle in the game.</strong> Just press the buttons on the strongbox.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text"><strong>Easiest puzzle in the game.</strong> Press the buttons on the strongbox.</span></li>
             </ol>
             <div class="warning">⚠ Equip a <strong>Mask</strong> before looting — same stolen-goods flag as the necklace.</div>
           </div>
@@ -792,23 +948,22 @@
               <tr><td>Move Speed</td><td>Lv 4 (global)</td></tr>
               <tr><td>HP Regen</td><td>+0.2 /sec</td></tr>
             </table>
-            <div class="note">The most involved earring to get — but the quest chain is worth it and the fight is good practice for positioning.</div>
+            <div class="note">Longer unlock chain, but worth keeping in the notes.</div>
           </div>
           <div>
             <p class="body-section-label">Quest chain to unlock</p>
             <ol class="steps">
-              <li class="step-item"><span class="step-num">1</span><span class="step-text"><strong>Unlock Halden:</strong> Free <strong>Velcom Outpost</strong> → return to Hernand → sleep → find the bounty flyer on the wall → go grab him.</span></li>
-              <li class="step-item"><span class="step-num">2</span><span class="step-text">Defeat <strong>Gwen</strong> → travel to <strong>Lioncrest Manor entrance</strong> → the legendary hunter NPC appears.</span></li>
-              <li class="step-item"><span class="step-num">3</span><span class="step-text">Give hunter <strong>2 leather</strong> (instant 100 trust) → give next NPC <strong>2 wine</strong> for his info.</span></li>
-              <li class="step-item"><span class="step-num">4</span><span class="step-text">Go to marked location → examine bodies → <strong>track with lantern</strong> → defeat <strong>Black Lion + pack</strong> → skin the beast.</span></li>
+              <li class="step-item"><span class="step-num">1</span><span class="step-text"><strong>Unlock Halden:</strong> Free <strong>Velcom Outpost</strong> → return to Hernand → sleep → find the bounty flyer → go grab him.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Defeat <strong>Gwen</strong> → travel to <strong>Lioncrest Manor entrance</strong> → legendary hunter NPC appears.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Give hunter <strong>2 leather</strong> and next NPC <strong>2 wine</strong>.</span></li>
+              <li class="step-item"><span class="step-num">4</span><span class="step-text">Track with lantern → defeat <strong>Black Lion + pack</strong> → skin the beast.</span></li>
             </ol>
-            <div class="warning">Multi-enemy fight — bring healing. The lion fight tests positioning and stamina. Move speed from your other gear helps.</div>
+            <div class="warning">Multi-enemy fight — bring healing.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- UPGRADING -->
     <div class="section-header">
       <span class="section-title">Upgrading &amp; materials</span>
       <div class="section-line"></div>
@@ -817,51 +972,50 @@
     <div class="upgrade-block">
       <div class="upgrade-title">⛏ Mining efficiency setup</div>
       <div class="upgrade-body">
-        Upgrade the <strong>Mining Knuckle Drill to rank 6+</strong> → unlocks Expert Mining, +20% ore yield, and <strong>auto-loot</strong> (no chasing drops). Stack <strong>Blessing of the Earth</strong> abyss gear on a dedicated farming set (up to 3 pieces × 30% = 90%). Combined with the drill: <strong>100% bonus ore</strong>. Same logic applies to skinning and wood cutting pieces.
+        Upgrade the <strong>Mining Knuckle Drill to rank 6+</strong>. This unlocks Expert Mining, +20% ore yield, and <strong>auto-loot</strong>. Stack <strong>Blessing of the Earth</strong> abyss gear on a dedicated farming set if you want a resource run setup.
       </div>
     </div>
 
     <div class="upgrade-block">
-      <div class="upgrade-title">🐍 Aeserion Scales (final rank unlock)</div>
+      <div class="upgrade-title">🐍 Aeserion Scales</div>
       <div class="upgrade-body">
-        Head to the <strong>small island in the south</strong>. Drop down from any Abyss teleporter above. Grab scales with <strong>Axiom Force</strong> — store in the Cuckoo Pot. No combat required (serpent dragon didn't aggro). Feels like enough to cover multiple playthroughs.
+        Head to the <strong>small island in the south</strong>. Drop down from an Abyss teleporter above. Grab scales with <strong>Axiom Force</strong> and store them.
       </div>
     </div>
 
     <div class="upgrade-block">
-      <div class="upgrade-title">📦 Don't skip medium bag quests after hitting 240 slots</div>
+      <div class="upgrade-title">📦 Bag quests after 240 slots</div>
       <div class="upgrade-body">
-        Once you hit the inventory cap, bag quests stop giving storage — but they <strong>now reward valuable materials</strong> (Flawless Timber etc.). Quick deliveries, worth doing.
+        Once inventory is capped, medium bag quests can still pay out useful materials instead of space. Still worth doing.
       </div>
     </div>
-
-  </div><!-- /tab-accessories -->
-
+  </div>
 
   <!-- ══════════════════════════════════
-       TAB: WEAPONS  (add as you go)
+       TAB: WEAPONS
   ══════════════════════════════════ -->
   <div class="tab-panel" id="tab-weapons">
-    <div class="placeholder">
-      <p class="placeholder-title">Weapons</p>
-      <p>Add entries here as you progress.<br>Copy an <code>&lt;item-card&gt;</code> block from the accessories section.</p>
+
+    <div class="callout">
+      <strong>Current weapon logic:</strong> Main hand is pure damage. Offhand is speed + utility. Bow is support / ranged option with one arrow sustain core, not a duplicate stack mess.
     </div>
 
-    <!-- TEMPLATE — copy and fill in
     <div class="section-header">
-      <span class="section-title">Two-handed sword</span>
+      <span class="section-title">Live Setup</span>
       <div class="section-line"></div>
     </div>
 
-    <div class="item-card" data-id="fated-shadow">
+    <div class="item-card" data-id="main-hand-current">
       <div class="item-card-header" onclick="toggleCard(this)">
-        <div class="item-icon">⚔️</div>
+        <div class="item-icon">🗡️</div>
         <div class="item-meta">
-          <div class="item-name">Fated Shadow</div>
-          <div class="item-slot">Sword · Nest of Valor, behind the boss</div>
+          <div class="item-name">Main Hand Sword</div>
+          <div class="item-slot">Current dual wield main hand</div>
         </div>
         <div class="stat-chips">
-          <span class="chip chip-gold">Gray Soul Howling</span>
+          <span class="chip chip-atk">Attack</span>
+          <span class="chip chip-atk">Attack</span>
+          <span class="chip chip-crit">Crit</span>
         </div>
         <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
           <span class="check-circle">✓</span>
@@ -874,60 +1028,300 @@
       <div class="item-body">
         <div class="body-grid">
           <div>
-            <p class="body-section-label">Stats</p>
+            <p class="body-section-label">What it wants</p>
             <table class="stats-table">
-              <tr><td>Attack</td><td>TBC</td></tr>
-              <tr><td>Unique Skill</td><td>Gray Soul Howling</td></tr>
+              <tr><td>Slot 1</td><td>Attack</td></tr>
+              <tr><td>Slot 2</td><td>Attack</td></tr>
+              <tr><td>Slot 3</td><td>Crit</td></tr>
             </table>
+            <div class="note"><strong>Rule:</strong> This is the damage engine. Do not waste a slot on utility here if you can help it.</div>
           </div>
           <div>
-            <p class="body-section-label">How to get</p>
+            <p class="body-section-label">Upgrade notes</p>
             <ol class="steps">
-              <li class="step-item"><span class="step-num">1</span><span class="step-text">Complete <strong>Unwavering Steps</strong> quest (Ch. 9) and defeat the boss.</span></li>
-              <li class="step-item"><span class="step-num">2</span><span class="step-text">Go <strong>behind the boss room</strong> → small room to the right → pick up the sword.</span></li>
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Attack II → Attack III is the biggest clean upgrade.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Crit I / II → Crit III next.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Replace ugly / over-refined base weapon when you find a better-looking one.</span></li>
             </ol>
           </div>
         </div>
       </div>
     </div>
-    -->
+
+    <div class="item-card" data-id="offhand-current">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">⚔️</div>
+        <div class="item-meta">
+          <div class="item-name">Offhand Sword</div>
+          <div class="item-slot">Current dual wield offhand</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-spd">Attack Speed</span>
+          <span class="chip chip-crit">Crit</span>
+          <span class="chip chip-gold">Crow's Pursuit</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">What it wants</p>
+            <table class="stats-table">
+              <tr><td>Slot 1</td><td>Attack Speed</td></tr>
+              <tr><td>Slot 2</td><td>Crit</td></tr>
+              <tr><td>Slot 3</td><td>Crow's Pursuit</td></tr>
+            </table>
+            <div class="note"><strong>Rule:</strong> Offhand is where utility / flow skill sits without wrecking main-hand damage.</div>
+          </div>
+          <div>
+            <p class="body-section-label">Upgrade notes</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Attack Speed II → III is good, but still behind main-hand Attack III upgrades.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Crit upgrades are fine here once main hand is sorted.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Do not move Crow's Pursuit into main hand.</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card" data-id="bow-current">
+      <div class="item-card-header" onclick="toggleCard(this)">
+        <div class="item-icon">🏹</div>
+        <div class="item-meta">
+          <div class="item-name">Bow</div>
+          <div class="item-slot">Current ranged setup</div>
+        </div>
+        <div class="stat-chips">
+          <span class="chip chip-spd">Atk Spd</span>
+          <span class="chip chip-crit">Crit</span>
+          <span class="chip chip-atk">Attack</span>
+          <span class="chip chip-atk">Attack</span>
+          <span class="chip chip-gold">60% arrows</span>
+        </div>
+        <button class="obtained-toggle" onclick="toggleObtained(event, this)" title="Mark as obtained">
+          <span class="check-circle">✓</span>
+          <span class="got-label">Got it</span>
+        </button>
+        <svg class="toggle-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 7.5l5 5 5-5"/>
+        </svg>
+      </div>
+      <div class="item-body">
+        <div class="body-grid">
+          <div>
+            <p class="body-section-label">What it wants</p>
+            <table class="stats-table">
+              <tr><td>Slot 1</td><td>Attack Speed</td></tr>
+              <tr><td>Slot 2</td><td>Crit</td></tr>
+              <tr><td>Slot 3</td><td>Attack</td></tr>
+              <tr><td>Slot 4</td><td>Attack</td></tr>
+              <tr><td>Slot 5</td><td>60% arrows</td></tr>
+            </table>
+            <div class="note"><strong>Rule:</strong> One arrow sustain slot only. One attack speed slot only. No duplicate arrow gimmicks.</div>
+          </div>
+          <div>
+            <p class="body-section-label">Upgrade notes</p>
+            <ol class="steps">
+              <li class="step-item"><span class="step-num">1</span><span class="step-text">Attack II → III upgrades are the cleanest next gain.</span></li>
+              <li class="step-item"><span class="step-num">2</span><span class="step-text">Crit II → III later.</span></li>
+              <li class="step-item"><span class="step-num">3</span><span class="step-text">Do not over-stack speed on bow.</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Chase / future notes</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">⚫ Fated Shadow</div>
+      <div class="upgrade-body">
+        Behind the boss in the <strong>Nest of Valor</strong> path tied to <strong>Unwavering Steps</strong>. Keep this noted because the <strong>Gray Soul Howling</strong> skill is too good to forget.
+      </div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">🎨 Weapon replacement rule</div>
+      <div class="upgrade-body">
+        Stop over-refining ugly or weak-looking bases. Replace first, then refine. Core setup matters, but if you hate the look, it will annoy you every time you play.
+      </div>
+    </div>
   </div>
 
-
   <!-- ══════════════════════════════════
-       TAB: ARMOR  (add as you go)
+       TAB: ARMOR
   ══════════════════════════════════ -->
   <div class="tab-panel" id="tab-armor">
-    <div class="placeholder">
-      <p class="placeholder-title">Armor</p>
-      <p>Add entries here as you progress.</p>
+
+    <div class="callout">
+      <strong>Armor rule:</strong> you already solved the structure. Helmet = Vigor. Chest = Vigor + Momentum + flex. Gloves and boots = movement + vitality. Future changes are mostly better base stats, looks, or fight-specific swaps.
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Live Setup</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">🪖 Helmet</div>
+        <div class="upgrade-body">
+          <strong>Keep:</strong> Vigor III<br>
+          <strong>Rule:</strong> 1 slot, no messing<br>
+          <strong>Only upgrade:</strong> better base helmet or higher Vigor
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🧥 Chest</div>
+        <div class="upgrade-body">
+          <strong>Core:</strong> Vigor + Momentum + Slashing Reeds<br>
+          <strong>Swap:</strong> Shockward / Frostward when needed
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🧤 Gloves</div>
+        <div class="upgrade-body">
+          <strong>Keep:</strong> Move Speed + Vitality<br>
+          <strong>Rule:</strong> support the engine, don’t force damage here
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">👢 Boots</div>
+        <div class="upgrade-body">
+          <strong>Keep:</strong> Move Speed + Vitality<br>
+          <strong>Rule:</strong> do not downgrade movement speed
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Replacement order</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">🧭 What to replace first</div>
+      <div class="upgrade-body">
+        1. Body Armor<br>
+        2. Helmet<br>
+        3. Cloak<br>
+        4. Boots<br>
+        <br>
+        <strong>Rule:</strong> only replace if the base looks better or the base stats are better <em>without</em> breaking the slot plan.
+      </div>
     </div>
   </div>
-
 
   <!-- ══════════════════════════════════
-       TAB: ABYSS GEAR  (add as you go)
+       TAB: ABYSS GEAR
   ══════════════════════════════════ -->
   <div class="tab-panel" id="tab-abyss">
-    <div class="placeholder">
-      <p class="placeholder-title">Abyss Gear</p>
-      <p>Add entries here as you progress.<br>Gathering bonuses, farming sets, blueprints — document as discovered.</p>
+
+    <div class="callout">
+      <strong>Abyss Gear rules from this run:</strong> Weapons want Attack / Crit / Speed. Armor wants Vigor / Momentum / Vitality / resist swaps. Situational cores get stored, not jammed in just because they dropped.
     </div>
 
-    <!-- Quick reference for farming bonuses — already known -->
-    <div class="callout" style="margin-top: 2rem;">
-      <strong>Blessing of the Earth</strong> — Abyss gathering piece. Comes in 3 ranks giving 10%, 20%, and 30% bonus ore. Stacks. Max 3 equipped = 90% bonus mining yield (+ 20% from Drill = 100% total).
+    <div class="section-header">
+      <span class="section-title">Core rules</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="mini-grid">
+      <div class="upgrade-block">
+        <div class="upgrade-title">⚔️ Weapon cores</div>
+        <div class="upgrade-body">
+          <strong>Use:</strong> Attack, Crit, Attack Speed<br>
+          <strong>Main hand:</strong> damage only<br>
+          <strong>Offhand:</strong> speed + crit + skill<br>
+          <strong>Bow:</strong> one arrows core only
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">🛡️ Armor cores</div>
+        <div class="upgrade-body">
+          <strong>Use:</strong> Vigor, Momentum, Vitality<br>
+          <strong>Swap in:</strong> Shockward / Frostward<br>
+          <strong>Do not chase:</strong> Composure unless you are genuinely getting staggered badly
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">📦 Stash these</div>
+        <div class="upgrade-body">
+          Shockward<br>
+          Frostward<br>
+          Bloodbane III<br>
+          Abyssbane III<br>
+          Hexebane III
+        </div>
+      </div>
+
+      <div class="upgrade-block">
+        <div class="upgrade-title">❌ Ignore these</div>
+        <div class="upgrade-body">
+          Ledgermain / pickpocket<br>
+          Wound of Darkness for this build<br>
+          Wind Slash as a priority piece<br>
+          Random niche utility that breaks core slots
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <span class="section-title">Farming notes</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">🌍 Blessing of the Earth</div>
+      <div class="upgrade-body">
+        Gathering piece for farming sets. Keep this noted as a dedicated resource-run setup, not a combat setup.
+      </div>
+    </div>
+
+    <div class="upgrade-block">
+      <div class="upgrade-title">🎯 Upgrade philosophy</div>
+      <div class="upgrade-body">
+        Only upgrade like-for-like. I → II → III. Correct stat wins. Do not wreck a clean build because a random shiny III dropped.
+      </div>
     </div>
   </div>
+  <div class="tab-panel" id="tab-build">
+  <div class="callout">
+    <strong>Current Build</strong><br><br>
+
+    Helmet: —<br>
+    Chest: —<br>
+    Gloves: —<br>
+    Boots: —<br><br>
+
+    Weapon 1: —<br>
+    Weapon 2: —<br>
+    Bow: —<br>
+  </div>
+</div>
 
 </main>
 
 <footer>
-  Crimson Desert personal gear index · Update as you explore Pywel
+  Crimson Desert personal gear index · Build tab first, reference tabs after
 </footer>
 
 <script>
-  // ─── TAB SWITCHING ───
   const nav = document.getElementById('main-nav');
   const panels = document.querySelectorAll('.tab-panel');
 
@@ -935,35 +1329,42 @@
     const btn = e.target.closest('.tab-btn');
     if (!btn) return;
     const tab = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
-    panels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.toggle('active', b === btn);
+    });
+
+    panels.forEach(p => {
+      p.classList.toggle('active', p.id === 'tab-' + tab);
+    });
   });
 
-  // ─── CARD EXPAND/COLLAPSE ───
   function toggleCard(header) {
     const card = header.closest('.item-card');
     card.classList.toggle('expanded');
   }
 
-  // ─── OBTAINED TOGGLE (persists via localStorage) ───
   function toggleObtained(event, btn) {
     event.stopPropagation();
     const card = btn.closest('.item-card');
     const id = card.dataset.id;
     const isGot = card.classList.toggle('obtained');
     btn.classList.toggle('got', isGot);
-    try { localStorage.setItem('cd-obtained-' + id, isGot ? '1' : ''); } catch(e) {}
+    try {
+      localStorage.setItem('cd-obtained-' + id, isGot ? '1' : '');
+    } catch(e) {}
   }
 
-  // ─── RESTORE OBTAINED STATE ON LOAD ───
   document.querySelectorAll('.item-card[data-id]').forEach(card => {
     try {
       if (localStorage.getItem('cd-obtained-' + card.dataset.id) === '1') {
         card.classList.add('obtained');
-        card.querySelector('.obtained-toggle').classList.add('got');
+        const toggle = card.querySelector('.obtained-toggle');
+        if (toggle) toggle.classList.add('got');
       }
     } catch(e) {}
   });
 </script>
+
 </body>
 </html>
