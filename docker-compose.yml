@@ -1,9 +1,16 @@
+# HOW TO USE:
+#   Start container (detached/background): docker compose up -d
+#   Stop container:                        docker compose down
+#   View logs:                             docker compose logs -f
+#   Restart:                               docker compose restart
+#   Site runs at:                          http://localhost:8080
+
 services:
   crimsondel:
-    image: nginx:alpine
+    image: nginx:alpine           # uses a lightweight nginx web server
     container_name: crimsondel-site
     ports:
-      - "8080:80"
+      - "8080:80"                 # maps your localhost:8080 to nginx port 80 inside the container
     volumes:
-      - .:/usr/share/nginx/html
-    restart: unless-stopped
+      - .:/usr/share/nginx/html  # serves files from this folder
+    restart: unless-stopped      # auto-restarts if it crashes, but not if you manually stop it
